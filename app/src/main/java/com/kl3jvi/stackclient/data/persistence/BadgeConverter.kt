@@ -7,6 +7,7 @@ import com.kl3jvi.stackclient.data.model.CollectivesDto
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
+import com.squareup.moshi.adapter
 import javax.inject.Inject
 
 @ProvidedTypeConverter
@@ -15,37 +16,17 @@ class BadgeConverter @Inject constructor(
 ) {
 
     @TypeConverter
-    fun fromString(value: String): List<BadgeCountsDto>? {
-        val listType = Types.newParameterizedType(List::class.java, BadgeCountsDto::class.java)
-        val adapter: JsonAdapter<List<BadgeCountsDto>> = moshi.adapter(listType)
+    fun fromString(value: String): BadgeCountsDto? {
+        val objectType = Types.newParameterizedType(BadgeCountsDto::class.java)
+        val adapter: JsonAdapter<BadgeCountsDto> = moshi.adapter(objectType)
         return adapter.fromJson(value)
+
     }
 
     @TypeConverter
-    fun fromInfoType(type: List<BadgeCountsDto>?): String {
-        val listType = Types.newParameterizedType(List::class.java, BadgeCountsDto::class.java)
-        val adapter: JsonAdapter<List<BadgeCountsDto>> = moshi.adapter(listType)
+    fun fromInfoType(type: BadgeCountsDto?): String {
+        val objectType = Types.newParameterizedType(BadgeCountsDto::class.java)
+        val adapter: JsonAdapter<BadgeCountsDto> = moshi.adapter(objectType)
         return adapter.toJson(type)
     }
 }
-
-@ProvidedTypeConverter
-class CollectivesConverter @Inject constructor(
-    private val moshi: Moshi
-) {
-
-    @TypeConverter
-    fun fromString(value: String): List<CollectivesDto>? {
-        val listType = Types.newParameterizedType(List::class.java, CollectivesDto::class.java)
-        val adapter: JsonAdapter<List<CollectivesDto>> = moshi.adapter(listType)
-        return adapter.fromJson(value)
-    }
-
-    @TypeConverter
-    fun fromInfoType(type: List<CollectivesDto>?): String {
-        val listType = Types.newParameterizedType(List::class.java, CollectivesDto::class.java)
-        val adapter: JsonAdapter<List<CollectivesDto>> = moshi.adapter(listType)
-        return adapter.toJson(type)
-    }
-}
-

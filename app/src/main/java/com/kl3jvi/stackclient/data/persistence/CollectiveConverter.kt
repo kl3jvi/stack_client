@@ -8,23 +8,22 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import javax.inject.Inject
 
-
 @ProvidedTypeConverter
-class CollectivesConverter @Inject constructor(
+class CollectiveConverter @Inject constructor(
     private val moshi: Moshi
 ) {
 
     @TypeConverter
-    fun fromString(value: String): List<CollectivesDto>? {
-        val listType = Types.newParameterizedType(List::class.java, CollectivesDto::class.java)
-        val adapter: JsonAdapter<List<CollectivesDto>> = moshi.adapter(listType)
+    fun fromString(value: String): CollectivesDto? {
+        val listType = Types.newParameterizedType(CollectivesDto::class.java)
+        val adapter: JsonAdapter<CollectivesDto> = moshi.adapter(listType)
         return adapter.fromJson(value)
     }
 
     @TypeConverter
-    fun fromInfoType(type: List<CollectivesDto>?): String {
+    fun fromInfoType(type: CollectivesDto?): String {
         val listType = Types.newParameterizedType(List::class.java, CollectivesDto::class.java)
-        val adapter: JsonAdapter<List<CollectivesDto>> = moshi.adapter(listType)
+        val adapter: JsonAdapter<CollectivesDto> = moshi.adapter(listType)
         return adapter.toJson(type)
     }
 }
