@@ -24,7 +24,7 @@ interface UsersService {
 
     @GET(BASE_URL + SPECIFIC_USER_QUERY)
     suspend fun getUserById(
-        @Path("@userId") userId: Int,
+        @Path("userId") userId: Int,
         @Query(SITE) site: String
     ): Response<ItemDto>
 }
