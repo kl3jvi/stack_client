@@ -3,7 +3,8 @@ package com.kl3jvi.stackclient.common
 object Constants {
     const val BASE_URL =
         "https://api.stackexchange.com/2.3/"
-    const val ALL_USERS_QUERY = "users sort=reputation&site=stackoverflow"
+    const val ALL_USERS_QUERY = "users"
+    const val SPECIFIC_USER_QUERY ="users/{userId}"
     const val ORDER = "order"
     const val ASC_ORDER_TYPE = "asc" // order=
     const val DESC_ORDER_TYPE = "desc"

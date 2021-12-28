@@ -19,6 +19,9 @@ interface UsersDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addUsers(users: List<ItemDto>)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addUser(users: ItemDto)
+
     /**
      * Deletes all the users from the [Post.TABLE_NAME] table.
      */
