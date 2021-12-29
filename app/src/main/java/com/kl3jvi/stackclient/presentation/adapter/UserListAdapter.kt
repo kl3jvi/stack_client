@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.kl3jvi.stackclient.data.model.ItemDto
 import com.kl3jvi.stackclient.databinding.UserListItemBinding
+import com.kl3jvi.stackclient.presentation.home.HomeFragmentDirections
 
 class UserListAdapter : ListAdapter<ItemDto, UserListAdapter.UserViewHolder>(
     PokemonDiffCallback()
@@ -18,18 +19,18 @@ class UserListAdapter : ListAdapter<ItemDto, UserListAdapter.UserViewHolder>(
         private val binding: UserListItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         init {
-//            binding.setClickListener { view ->
-//                binding.pokemonObj?.let { pokemonDetails ->
-//                    navigateToDetails(pokemonDetails, view)
-//                }
-//            }
+            binding.setClickListener { view ->
+                binding.userInfo?.let { userInfo ->
+                    navigateToDetails(userInfo, view)
+                }
+            }
         }
 
-//        private fun navigateToDetails(pokemon: Pokemon, view: View) {
-//            val direction =
-//                MainFragmentDirections.actionMainFragmentToDetailsFragment(pokemon)
-//            view.findNavController().navigate(direction)
-//        }
+        private fun navigateToDetails(userDetails: ItemDto, view: View) {
+            val direction =
+                HomeFragmentDirections.actionHomeFragmentToDetailsFragment(userDetails)
+            view.findNavController().navigate(direction)
+        }
 
         fun bindUserItem(item: ItemDto) {
             binding.apply {
