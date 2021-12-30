@@ -1,32 +1,71 @@
 package com.kl3jvi.stackclient.presentation.home
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.kl3jvi.stackclient.R
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import com.kl3jvi.stackclient.common.ViewUtils.showToast
+import com.kl3jvi.stackclient.databinding.HomeFragmentBinding
+import com.kl3jvi.stackclient.domain.model.State
+import com.kl3jvi.stackclient.presentation.adapter.UserListAdapter
+import com.kl3jvi.stackclient.presentation.base.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
-class HomeFragment : Fragment() {
+@AndroidEntryPoint
+class HomeFragment : BaseFragment<HomeViewModel, HomeFragmentBinding>() {
 
-    companion object {
-        fun newInstance() = HomeFragment()
-    }
-
-    private lateinit var viewModel: HomeViewModel
+    override val viewModel: HomeViewModel by viewModels()
+    private val mAdapter = UserListAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.home_fragment, container, false)
+    ): View {
+        return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun initViews() {
+        binding.run {
+//            vm = viewModel
+            recyclerView.adapter = mAdapter
+            swipeRefreshLayout.setOnRefreshListener { getUsers() }
+        }
     }
 
+    override fun observeViewModel() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.users.collect { state ->
+                    when (state) {
+                        is State.Loading -> showLoading(true)
+                        is State.Success -> {
+                            if (state.data.isNotEmpty()) {
+                                mAdapter.submitList(state.data.toMutableList())
+                                showLoading(false)
+                            }
+                        }
+                        is State.Error -> {
+                            showToast(state.message)
+                            showLoading(false)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun getUsers() = viewModel.getUsers()
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.swipeRefreshLayout.isRefreshing = isLoading
+    }
+
+    override fun getViewBinding(): HomeFragmentBinding =
+        HomeFragmentBinding.inflate(layoutInflater)
 }

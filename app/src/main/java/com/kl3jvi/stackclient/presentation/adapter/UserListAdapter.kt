@@ -12,7 +12,7 @@ import com.kl3jvi.stackclient.databinding.UserListItemBinding
 import com.kl3jvi.stackclient.presentation.home.HomeFragmentDirections
 
 class UserListAdapter : ListAdapter<ItemDto, UserListAdapter.UserViewHolder>(
-    PokemonDiffCallback()
+    UserDiffCallback()
 ) {
 
     inner class UserViewHolder constructor(
@@ -53,7 +53,7 @@ class UserListAdapter : ListAdapter<ItemDto, UserListAdapter.UserViewHolder>(
         holder.bindUserItem(getItem(position))
 }
 
-private class PokemonDiffCallback : DiffUtil.ItemCallback<ItemDto>() {
+private class UserDiffCallback : DiffUtil.ItemCallback<ItemDto>() {
 
     override fun areItemsTheSame(
         oldItem: ItemDto,
