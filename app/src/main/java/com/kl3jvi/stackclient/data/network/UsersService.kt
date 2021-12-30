@@ -8,6 +8,7 @@ import com.kl3jvi.stackclient.common.Constants.SITE
 import com.kl3jvi.stackclient.common.Constants.SORT
 import com.kl3jvi.stackclient.common.Constants.SPECIFIC_USER_QUERY
 import com.kl3jvi.stackclient.data.model.ItemDto
+import com.kl3jvi.stackclient.data.model.UsersDto
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -16,11 +17,11 @@ import retrofit2.http.Query
 interface UsersService {
     @GET(BASE_URL + ALL_USERS_QUERY)
     suspend fun getUsers(
+        @Query(PAGE) page: Int,
         @Query(ORDER) orderType: String,
         @Query(SORT) sortBy: String,
-        @Query(SITE) site: String,
-        @Query(PAGE) page: Int
-    ): Response<List<ItemDto>>
+        @Query(SITE) site: String
+    ): Response<UsersDto>
 
     @GET(BASE_URL + SPECIFIC_USER_QUERY)
     suspend fun getUserById(

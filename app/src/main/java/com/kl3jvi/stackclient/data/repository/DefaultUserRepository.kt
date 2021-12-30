@@ -2,10 +2,12 @@ package com.kl3jvi.stackclient.data.repository
 
 import androidx.annotation.MainThread
 import com.kl3jvi.stackclient.common.Constants.ASC_ORDER_TYPE
+import com.kl3jvi.stackclient.common.Constants.DESC_ORDER_TYPE
 import com.kl3jvi.stackclient.common.Constants.SORT_BY_REPUTATION
 import com.kl3jvi.stackclient.common.Constants.STACK_TYPE
 import com.kl3jvi.stackclient.common.Resource
 import com.kl3jvi.stackclient.data.model.ItemDto
+import com.kl3jvi.stackclient.data.model.UsersDto
 import com.kl3jvi.stackclient.data.network.UsersService
 import com.kl3jvi.stackclient.data.persistence.UsersDao
 import com.kl3jvi.stackclient.domain.repository.UserRepository
@@ -26,16 +28,16 @@ class DefaultUserRepository @Inject constructor(
      * storage is fetched and emitted.
      */
     override fun getAllUsers(): Flow<Resource<List<ItemDto>>> {
-        return object : NetworkBoundRepository<List<ItemDto>, List<ItemDto>>() {
+        return object : NetworkBoundRepository<List<ItemDto>, UsersDto>() {
 
-            override suspend fun saveRemoteData(response: List<ItemDto>) =
-                usersDao.addUsers(response)
+            override suspend fun saveRemoteData(response: UsersDto) =
+                usersDao.addUsers(response.items)
 
             override fun fetchFromLocal(): Flow<List<ItemDto>> = usersDao.getAllUsers()
 
-            override suspend fun fetchFromRemote(): Response<List<ItemDto>> =
+            override suspend fun fetchFromRemote(): Response<UsersDto> =
                 usersService.getUsers(
-                    orderType = ASC_ORDER_TYPE,
+                    orderType = DESC_ORDER_TYPE,
                     sortBy = SORT_BY_REPUTATION,
                     site = STACK_TYPE,
                     page = 1

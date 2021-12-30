@@ -1,6 +1,9 @@
 package com.kl3jvi.stackclient.presentation.home
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.kl3jvi.stackclient.common.ViewUtils.showToast
+import com.kl3jvi.stackclient.common.NetworkUtil
 import com.kl3jvi.stackclient.databinding.HomeFragmentBinding
 import com.kl3jvi.stackclient.domain.model.State
 import com.kl3jvi.stackclient.presentation.adapter.UserListAdapter
@@ -26,13 +29,17 @@ class HomeFragment : BaseFragment<HomeViewModel, HomeFragmentBinding>() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         return binding.root
     }
 
+    override fun onStart() {
+        super.onStart()
+        handleNetworkChanges()
+    }
     override fun initViews() {
         binding.run {
-//            vm = viewModel
+            vm = viewModel
             recyclerView.adapter = mAdapter
             swipeRefreshLayout.setOnRefreshListener { getUsers() }
         }
@@ -45,17 +52,26 @@ class HomeFragment : BaseFragment<HomeViewModel, HomeFragmentBinding>() {
                     when (state) {
                         is State.Loading -> showLoading(true)
                         is State.Success -> {
+                            Log.e("LIst",state.data.toString())
                             if (state.data.isNotEmpty()) {
                                 mAdapter.submitList(state.data.toMutableList())
                                 showLoading(false)
                             }
                         }
                         is State.Error -> {
-                            showToast(state.message)
+//                            showToast(state.message)
                             showLoading(false)
                         }
                     }
                 }
+            }
+        }
+    }
+
+    private fun handleNetworkChanges() {
+        NetworkUtil.getNetworkLiveData(requireContext()).observe(viewLifecycleOwner) { isConnected ->
+            if (isConnected) {
+                if (mAdapter.itemCount == 0) getUsers()
             }
         }
     }
@@ -66,6 +82,6 @@ class HomeFragment : BaseFragment<HomeViewModel, HomeFragmentBinding>() {
         binding.swipeRefreshLayout.isRefreshing = isLoading
     }
 
-    override fun getViewBinding(): HomeFragmentBinding =
-        HomeFragmentBinding.inflate(layoutInflater)
+    override fun getViewBinding(): HomeFragmentBinding = HomeFragmentBinding.inflate(layoutInflater)
+
 }

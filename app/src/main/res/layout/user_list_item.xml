@@ -28,7 +28,7 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/imageView"
-                android:layout_width="wrap_content"
+                android:layout_width="60dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
@@ -56,11 +56,12 @@
 
             <TextView
                 android:id="@+id/userName"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 android:text="@{userInfo.displayName}"
+                app:layout_constraintEnd_toStartOf="@+id/guideline3"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
                 app:layout_constraintTop_toBottomOf="@+id/name"
                 tools:text="John Doe" />
@@ -82,7 +83,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="@{userInfo.creationDate}"
+                android:text="@{userInfo.getDateTime}"
                 app:layout_constraintEnd_toEndOf="@+id/created"
                 app:layout_constraintStart_toStartOf="@+id/created"
                 app:layout_constraintTop_toBottomOf="@+id/created"

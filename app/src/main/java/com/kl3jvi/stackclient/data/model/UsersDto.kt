@@ -1,17 +1,20 @@
 package com.kl3jvi.stackclient.data.model
 
 
+import android.os.Parcelable
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import kotlinx.parcelize.Parcelize
 
 @JsonClass(generateAdapter = true)
+@Parcelize
 data class UsersDto(
-    @Json(name = "has_more")
+    @field:Json(name = "has_more")
     val hasMore: Boolean,
-    @Json(name = "items")
+    @field:Json(name = "items")
     val items: List<ItemDto>,
-    @Json(name = "quota_max")
+    @field:Json(name = "quota_max")
     val quotaMax: Int,
-    @Json(name = "quota_remaining")
+    @field:Json(name = "quota_remaining")
     val quotaRemaining: Int
-)
+):Parcelable
