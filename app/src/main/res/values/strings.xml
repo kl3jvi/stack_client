@@ -3,4 +3,7 @@
     <string name="profile_image">Profile Image</string>
     <string name="name">Name</string>
     <string name="created">Created</string>
+    <string name="username">Username</string>
+    <string name="reputation">Reputation</string>
+    <string name="top_tags">Top Tags</string>
 </resources>

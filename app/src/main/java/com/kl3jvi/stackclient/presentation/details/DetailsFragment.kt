@@ -1,34 +1,38 @@
 package com.kl3jvi.stackclient.presentation.details
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.kl3jvi.stackclient.R
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
+import com.kl3jvi.stackclient.databinding.DetailsFragmentBinding
+import com.kl3jvi.stackclient.presentation.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class DetailsFragment : Fragment() {
+class DetailsFragment : BaseFragment<DetailsViewModel, DetailsFragmentBinding>() {
 
-    companion object {
-        fun newInstance() = DetailsFragment()
-    }
-
-    private lateinit var viewModel: DetailsViewModel
+    override val viewModel: DetailsViewModel by viewModels()
+    private val args: DetailsFragmentArgs by navArgs()
+    private val userData get() = args.userData
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.details_fragment, container, false)
+    ): View {
+        return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(DetailsViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun observeViewModel() {
+
     }
+
+    override fun initViews() {
+        binding.userData = userData
+    }
+
+    override fun getViewBinding(): DetailsFragmentBinding =
+        DetailsFragmentBinding.inflate(layoutInflater)
 
 }

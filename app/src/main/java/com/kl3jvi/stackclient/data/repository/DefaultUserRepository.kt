@@ -1,7 +1,6 @@
 package com.kl3jvi.stackclient.data.repository
 
 import androidx.annotation.MainThread
-import com.kl3jvi.stackclient.common.Constants.ASC_ORDER_TYPE
 import com.kl3jvi.stackclient.common.Constants.DESC_ORDER_TYPE
 import com.kl3jvi.stackclient.common.Constants.SORT_BY_REPUTATION
 import com.kl3jvi.stackclient.common.Constants.STACK_TYPE
@@ -13,6 +12,7 @@ import com.kl3jvi.stackclient.data.persistence.UsersDao
 import com.kl3jvi.stackclient.domain.repository.UserRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.distinctUntilChanged
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -51,19 +51,6 @@ class DefaultUserRepository @Inject constructor(
      * @return [ItemDto] data fetched from the database.
      */
     @MainThread
-    override fun getUserById(userId: Int): Flow<Resource<ItemDto>> {
-        return object : NetworkBoundRepository<ItemDto, ItemDto>() {
-
-            override suspend fun saveRemoteData(response: ItemDto) =
-                usersDao.addUser(response)
-
-            override fun fetchFromLocal(): Flow<ItemDto> = usersDao.getUserById(userId = userId)
-
-            override suspend fun fetchFromRemote(): Response<ItemDto> =
-                usersService.getUserById(
-                    userId = userId,
-                    site = STACK_TYPE,
-                )
-        }.asFlow()
-    }
+    override fun getUserById(userId: Int): Flow<ItemDto> =
+        usersDao.getUserById(userId).distinctUntilChanged()
 }

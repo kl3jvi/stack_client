@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="UserPhoto">
+        <item name="android:layout_marginTop">@dimen/dimen_16</item>
+        <item name="android:layout_marginEnd">@dimen/dimen_16</item>
+        <item name="android:layout_marginBottom">@dimen/dimen_16</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <style name="UserNameText">
+        <item name="android:layout_marginStart">@dimen/dimen_16</item>
+        <item name="android:layout_marginTop">@dimen/dimen_16</item>
+        <item name="android:layout_marginEnd">@dimen/dimen_8</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <dimen name="dimen_16">16dp</dimen>
+    <dimen name="dimen_8">8dp</dimen>
+</resources>

@@ -28,6 +28,7 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/imageView"
+                style="@style/UserPhoto"
                 android:layout_width="60dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="5dp"
@@ -43,6 +44,7 @@
 
             <TextView
                 android:id="@+id/name"
+                style="@style/UserNameText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -57,10 +59,12 @@
             <TextView
                 android:id="@+id/userName"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
                 android:text="@{userInfo.displayName}"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/guideline3"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
                 app:layout_constraintTop_toBottomOf="@+id/name"
@@ -68,6 +72,7 @@
 
             <TextView
                 android:id="@+id/created"
+                style="@style/UserNameText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -98,4 +103,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
+
+
 </layout>
