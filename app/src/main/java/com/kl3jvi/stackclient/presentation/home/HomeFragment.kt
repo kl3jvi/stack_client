@@ -12,6 +12,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.kl3jvi.stackclient.common.NetworkUtil
+import com.kl3jvi.stackclient.common.ViewUtils.showToast
 import com.kl3jvi.stackclient.databinding.HomeFragmentBinding
 import com.kl3jvi.stackclient.domain.model.State
 import com.kl3jvi.stackclient.presentation.adapter.UserListAdapter
@@ -52,14 +53,13 @@ class HomeFragment : BaseFragment<HomeViewModel, HomeFragmentBinding>() {
                     when (state) {
                         is State.Loading -> showLoading(true)
                         is State.Success -> {
-                            Log.e("LIst",state.data.toString())
                             if (state.data.isNotEmpty()) {
                                 mAdapter.submitList(state.data.toMutableList())
                                 showLoading(false)
                             }
                         }
                         is State.Error -> {
-//                            showToast(state.message)
+                            showToast(state.message)
                             showLoading(false)
                         }
                     }
@@ -72,7 +72,7 @@ class HomeFragment : BaseFragment<HomeViewModel, HomeFragmentBinding>() {
         NetworkUtil.getNetworkLiveData(requireContext()).observe(viewLifecycleOwner) { isConnected ->
             if (isConnected) {
                 if (mAdapter.itemCount == 0) getUsers()
-            }
+            }else showToast("No Connection")
         }
     }
 

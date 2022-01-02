@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 /**
  * No need for this view model as the api works fine without making another request
- * anyway I have build the methods and the classess for different approach
+ * anyway I have build the methods and the classes for different approach
  */
 
 @HiltViewModel

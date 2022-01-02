@@ -35,12 +35,15 @@ object PersistenceModule {
     fun provideAppDatabase(
         application: Application,
         badgeConverter: BadgeConverter,
+        collectivesListConverter: CollectivesListConverter,
+        collectiveConverter: CollectiveConverter
     ): AppDatabase {
         return Room
             .databaseBuilder(application, AppDatabase::class.java, TABLE_NAME)
             .fallbackToDestructiveMigration()
             .addTypeConverter(badgeConverter)
-
+            .addTypeConverter(collectivesListConverter)
+            .addTypeConverter(collectiveConverter)
             .build()
     }
 }
