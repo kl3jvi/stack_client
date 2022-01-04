@@ -23,7 +23,7 @@ data class ItemDto(
     @field:Json(name = "badge_counts")
     val badgeCounts: BadgeCountsDto?,
     @field:Json(name = "collectives")
-    val collectives: List<CollectivesDto>,
+    val collectives: List<CollectivesDto>?,
     @field:Json(name = "creation_date")
     val creationDate: Int?,
     @field:Json(name = "display_name")

@@ -1,4 +1,4 @@
-package com.kl3jvi.stackclient.data.persistence
+package com.kl3jvi.stackclient.data.persistence.converters
 
 import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
