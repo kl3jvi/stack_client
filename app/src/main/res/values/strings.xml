@@ -7,4 +7,5 @@
     <string name="reputation">Reputation</string>
     <string name="top_tags">Top Tags</string>
     <string name="no_tags">No Tags</string>
+    <string name="location">Location</string>
 </resources>

@@ -1,147 +1,174 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="userData"
             type="com.kl3jvi.stackclient.data.model.ItemDto" />
     </data>
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".presentation.details.DetailsFragment">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.details.DetailsFragment">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/bgCard"
-        android:layout_width="180dp"
-        android:layout_height="180dp"
-        android:layout_marginTop="16dp"
-        app:cardBackgroundColor="@color/cardview_dark_background"
-        app:cardCornerRadius="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/bgCard"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:layout_marginTop="16dp"
+            app:cardBackgroundColor="@color/cardview_dark_background"
+            app:cardCornerRadius="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/profileImage"
-            android:layout_width="match_parent"
-            app:image="@{userData.profileImage}"
-            android:layout_height="match_parent" />
-    </com.google.android.material.card.MaterialCardView>
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-
-        android:orientation="vertical"
-        android:padding="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bgCard">
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/profileImage"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" >
+                android:layout_height="match_parent"
+                app:image="@{userData.profileImage}" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+
+            android:orientation="vertical"
+            android:padding="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bgCard">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/detailsName"
-                        style="@style/UserNameText"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/username" />
+                        android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/detailsNameVal"
-                        android:layout_width="wrap_content"
+                        <TextView
+                            android:id="@+id/detailsName"
+                            style="@style/UserNameText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/username" />
+
+                        <TextView
+                            android:id="@+id/detailsNameVal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dimen_16"
+                            android:layout_marginTop="@dimen/dimen_16"
+                            android:layout_marginEnd="@dimen/dimen_8"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="@{userData.displayName}" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dimen_16"
-                        android:layout_marginTop="@dimen/dimen_16"
-                        android:layout_marginEnd="@dimen/dimen_8"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="@{userData.displayName}" />
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/detailsReputation"
+                            style="@style/UserNameText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/reputation" />
+
+                        <TextView
+                            android:id="@+id/detailsReputationVal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dimen_16"
+                            android:layout_marginTop="@dimen/dimen_16"
+                            android:layout_marginEnd="@dimen/dimen_8"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="@{String.valueOf(userData.reputation)}" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/detailsTopTags"
+                            style="@style/UserNameText"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/top_tags" />
+
+                        <com.google.android.material.chip.ChipGroup
+                            android:id="@+id/detailsTopTagsVal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dimen_16"
+                            android:layout_marginTop="@dimen/dimen_16"
+                            android:layout_marginEnd="@dimen/dimen_16"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:visibility="visible">
+
+                        </com.google.android.material.chip.ChipGroup>
+
+                        <TextView
+                            android:id="@+id/noTagsDisclaimer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dimen_16"
+                            android:layout_marginTop="@dimen/dimen_16"
+                            android:layout_marginEnd="@dimen/dimen_16"
+                            android:layout_weight="1"
+                            android:text="@string/no_tags"
+                            android:visibility="visible" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/location"
+                            style="@style/UserNameText"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/location" />
+
+                        <TextView
+                            android:id="@+id/locationVal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dimen_16"
+                            android:layout_marginTop="@dimen/dimen_16"
+                            android:layout_marginEnd="@dimen/dimen_16"
+                            android:layout_weight="1"
+                            android:text="@{userData.location}"
+                            android:visibility="visible" />
+                    </LinearLayout>
+
                 </LinearLayout>
+            </ScrollView>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/detailsReputation"
-                        style="@style/UserNameText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/reputation" />
-
-                    <TextView
-                        android:id="@+id/detailsReputationVal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dimen_16"
-                        android:layout_marginTop="@dimen/dimen_16"
-                        android:layout_marginEnd="@dimen/dimen_8"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="@{String.valueOf(userData.reputation)}" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/detailsTopTags"
-                        style="@style/UserNameText"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/top_tags" />
-
-                    <com.google.android.material.chip.ChipGroup
-                        android:id="@+id/detailsTopTagsVal"
-                        android:layout_width="0dp"
-                        android:visibility="visible"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dimen_16"
-                        android:layout_marginTop="@dimen/dimen_16"
-                        android:layout_marginEnd="@dimen/dimen_16"
-                        android:layout_weight="1"
-                        android:gravity="center" >
-
-                    </com.google.android.material.chip.ChipGroup>
-
-                    <TextView
-                        android:id="@+id/noTagsDisclaimer"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/no_tags"
-                        android:layout_marginStart="@dimen/dimen_16"
-                        android:layout_marginTop="@dimen/dimen_16"
-                        android:layout_marginEnd="@dimen/dimen_16"
-                        android:layout_weight="1"
-                        android:visibility="visible" />
-                </LinearLayout>
-
-            </LinearLayout>
-        </ScrollView>
-
-    </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
