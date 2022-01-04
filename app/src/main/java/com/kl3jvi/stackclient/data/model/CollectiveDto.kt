@@ -13,4 +13,6 @@ import kotlinx.parcelize.Parcelize
 data class CollectiveDto(
     @Json(name = "description")
     val description: String,
-) : Parcelable
+    @Json(name = "tags")
+    val tags: List<String>
+):Parcelable

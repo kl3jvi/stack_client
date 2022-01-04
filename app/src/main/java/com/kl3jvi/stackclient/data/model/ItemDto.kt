@@ -1,8 +1,8 @@
 package com.kl3jvi.stackclient.data.model
 
 
+import android.annotation.SuppressLint
 import android.os.Parcelable
-import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
@@ -58,11 +58,12 @@ data class ItemDto(
     val userType: String?,
     @field:Json(name = "website_url")
     val websiteUrl: String?
-) : Parcelable{
+) : Parcelable {
+    @SuppressLint("SimpleDateFormat")
     fun getDateTime(): String? {
         return try {
             val sdf = SimpleDateFormat("MM/dd/yyyy")
-            val netDate = Date(creationDate?.toLong()?.times(1000)?:0)
+            val netDate = Date(creationDate?.toLong()?.times(1000) ?: 0)
             sdf.format(netDate)
         } catch (e: Exception) {
             e.toString()
